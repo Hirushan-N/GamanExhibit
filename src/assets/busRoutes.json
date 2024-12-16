@@ -1,0 +1,14 @@
+{
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/buses",
+        "summary": "Search buses or get all buses",
+        "parameters": [
+          { "name": "busNumber", "type": "string", "description": "The bus number to filter by" },
+          { "name": "capacity", "type": "number", "description": "The capacity of the bus to filter by" }
+        ]
+      }
+    ]
+  }
+  
