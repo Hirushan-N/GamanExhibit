@@ -1,0 +1,30 @@
+{
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/auth/login",
+        "summary": "Log in a user",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": [
+                  { "name": "username", "type": "string", "description": "The user's username", "example": "johndoe" },
+                  { "name": "password", "type": "string", "description": "The user's password", "example": "StrongPassword123!" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": [
+          { "status": 200, "description": "Login successful" },
+          { "status": 400, "description": "Validation failed" },
+          { "status": 401, "description": "Unauthorized" }
+        ]
+      }
+    ]
+  }
+  
