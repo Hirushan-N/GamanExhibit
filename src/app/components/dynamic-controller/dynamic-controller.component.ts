@@ -14,12 +14,31 @@ import { EndpointParameter } from '../../models/endpoint-parameter.model';
 })
 export class DynamicControllerComponent implements OnInit {
   controllerName: string = '';
-  endpoints: any[] = [];
+  endpoints: any[] = [
+    {
+      "method": "GET",
+      "path": "/routes",
+      "summary": "Get all routes or search routes",
+      "tags": ["Routes"],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "routeNumber",
+          "type": "string",
+          "description": "The route number to filter by"
+        }
+      ],
+      "responses": [
+        { "status": 200, "description": "List of routes matching the criteria" },
+        { "status": 500, "description": "Internal server error" }
+      ]
+    }
+  ];
   activeEndpoint: any = null;
   form!: FormGroup;
   requestObject: any = {};
   responseObject: any = {};
-
+  
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -35,50 +54,12 @@ export class DynamicControllerComponent implements OnInit {
   }
 
   loadRoutes() {
-    fetch(`assets/${this.controllerName}Routes.ts`)
-      .then((res) => res.json())
-      .then((data) => {
-        this.endpoints = data.endpoints;
-        if (this.endpoints.length > 0) {
-          this.selectEndpoint(this.endpoints[0]);
-        }
-      })
-      .catch((error) => console.error('Error loading routes:', error));
-  }  
-
-  parseRoutes(fileContent: string) {
-    const endpointRegex = /@swagger\s*\*\/([\s\S]*?)(router\.(get|post|put|delete))/g;
-    const endpoints = [];
-    let match;
-
-    while ((match = endpointRegex.exec(fileContent)) !== null) {
-      const comment = match[1];
-      const method = match[3].toUpperCase();
-      const pathMatch = comment.match(/\/[^\s]+/);
-      const path = pathMatch ? pathMatch[0] : '';
-      const parameters = this.parseParameters(comment);
-
-      endpoints.push({ method, path, parameters });
-    }
-
-    return endpoints;
-  }
-
-  parseParameters(comment: string) {
-    const paramRegex = /- in: (\w+)\s*name: (\w+)\s*schema:\s*type: (\w+)/g;
-    const parameters = [];
-    let match;
-
-    while ((match = paramRegex.exec(comment)) !== null) {
-      parameters.push({ name: match[2], type: match[3], required: false });
-    }
-
-    return parameters;
+    this.selectEndpoint(this.endpoints[0]);
   }
 
   selectEndpoint(endpoint: any) {
     this.activeEndpoint = endpoint;
-  
+
     this.form = this.fb.group(
       endpoint.parameters.reduce(
         (acc: { [key: string]: any }, param: EndpointParameter) => {
@@ -88,12 +69,11 @@ export class DynamicControllerComponent implements OnInit {
         {}
       )
     );
-  
+
     this.form.valueChanges.subscribe((values) => {
       this.updateRequestObject(values);
     });
   }
-  
 
   updateRequestObject(values: any) {
     this.requestObject = {
