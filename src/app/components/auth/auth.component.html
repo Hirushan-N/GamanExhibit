@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <!-- Tab Navigation -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="tab" href="#login">Login</a>
+    </li>
+  </ul>
+
+  <!-- Tab Content -->
+  <div class="tab-content mt-3">
+    <!-- Login Tab -->
+    <div id="login" class="tab-pane fade show active">
+      <!-- Form Section -->
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="border p-3 rounded shadow-sm">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input
+                type="text"
+                id="username"
+                class="form-control"
+                [(ngModel)]="loginData.username"
+                name="username"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                [(ngModel)]="loginData.password"
+                name="password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary me-2" [disabled]="!loginForm.valid">Send</button>
+            <button type="button" class="btn btn-secondary" (click)="onReset()">Reset</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Request and Response Viewer -->
+      <app-http-display
+        [requestObject]="requestObject"
+        [responseObject]="responseObject"
+      ></app-http-display>
+    </div>
+  </div>
+</div>

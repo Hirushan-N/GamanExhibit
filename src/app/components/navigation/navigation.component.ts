@@ -10,5 +10,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent {
-  controllers = ['auth', 'bus', 'route', 'ticket', 'tripSchedule', 'user'];
+  controllers = ['Auth', 'Bus', 'Route', 'Schedule', 'Schedule-Entry', 'Ticket', 'User'];
 }

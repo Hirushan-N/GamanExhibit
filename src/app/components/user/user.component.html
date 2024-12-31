@@ -1,0 +1,218 @@
+<div class="container mt-4">
+    <!-- Tab Navigation -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#register">Register User</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#search">Search Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#update">Update User</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#delete">Delete User</a>
+      </li>
+    </ul>
+  
+    <!-- Tab Content -->
+    <div class="tab-content mt-3">
+      <!-- Tab 1: Register User -->
+      <div id="register" class="tab-pane fade show active">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onRegisterUser()" #registerForm="ngForm" class="border p-3 rounded shadow-sm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="registerData.username"
+                      name="username"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      [(ngModel)]="registerData.password"
+                      name="password"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      [(ngModel)]="registerData.email"
+                      name="email"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Role</label>
+                    <select
+                      class="form-select"
+                      [(ngModel)]="registerData.role"
+                      name="role"
+                      required
+                    >
+                      <option value="admin">Admin</option>
+                      <option value="operator">Operator</option>
+                      <option value="commuter">Commuter</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Register</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('register')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="registerRequest" [responseObject]="registerResponse"></app-http-display>
+      </div>
+  
+      <!-- Repeat similar structure for Search, Update, and Delete tabs -->
+  
+      <!-- Tab 2: Search Users -->
+      <div id="search" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onSearchUsers()" #searchForm="ngForm" class="border p-3 rounded shadow-sm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="searchFilters.username"
+                      name="username"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      [(ngModel)]="searchFilters.email"
+                      name="email"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Role</label>
+                    <select
+                      class="form-select"
+                      [(ngModel)]="searchFilters.role"
+                      name="role"
+                    >
+                      <option value="">Any</option>
+                      <option value="admin">Admin</option>
+                      <option value="operator">Operator</option>
+                      <option value="commuter">Commuter</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Search</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('search')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="searchRequest" [responseObject]="searchResponse"></app-http-display>
+      </div>
+  
+      <!-- Tab 3: Update User -->
+      <div id="update" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onUpdateUser()" #updateForm="ngForm" class="border p-3 rounded shadow-sm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">User ID</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="updateData.id"
+                      name="id"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="updateData.username"
+                      name="username"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      [(ngModel)]="updateData.email"
+                      name="email"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Role</label>
+                    <select
+                      class="form-select"
+                      [(ngModel)]="updateData.role"
+                      name="role"
+                    >
+                      <option value="">Any</option>
+                      <option value="admin">Admin</option>
+                      <option value="operator">Operator</option>
+                      <option value="commuter">Commuter</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Update</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('update')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="updateRequest" [responseObject]="updateResponse"></app-http-display>
+      </div>
+  
+      <!-- Tab 4: Delete User -->
+      <div id="delete" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onDeleteUser()" #deleteForm="ngForm" class="border p-3 rounded shadow-sm">
+              <div class="mb-3">
+                <label class="form-label">User ID</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="deleteData.id"
+                  name="id"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-danger me-2">Delete</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('delete')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="deleteRequest" [responseObject]="deleteResponse"></app-http-display>
+      </div>
+    </div>
+  </div>
+  

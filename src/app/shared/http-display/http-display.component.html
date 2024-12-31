@@ -1,0 +1,35 @@
+<div class="row">
+  <!-- Left Column: Request Object -->
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-light">
+        <h5 class="mb-0">HTTP Request</h5>
+      </div>
+      <div class="card-body"  style="height: 400px; overflow-y: auto;">
+        <div *ngIf="requestObject; else noRequest">
+          <ngx-json-viewer [json]="requestObject"></ngx-json-viewer>
+        </div>
+        <ng-template #noRequest>
+          <p class="text-muted">No request data available</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Column: Response Object -->
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-light">
+        <h5 class="mb-0">HTTP Response</h5>
+      </div>
+      <div class="card-body" style="height: 400px; overflow-y: auto;">
+        <div *ngIf="responseObject; else noResponse">
+          <ngx-json-viewer [json]="responseObject"></ngx-json-viewer>
+        </div>
+        <ng-template #noResponse>
+          <p class="text-muted">No response data available</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,10 @@
-<nav class="nav flex-column">
-    <a
-      class="nav-link"
-      *ngFor="let controller of controllers"
-      [routerLink]="['/', controller]"
-    >
-      {{ controller }}
-    </a>
-  </nav>
-  
+<nav class="nav nav-pills justify-content-center styled-nav">
+  <a
+    class="nav-link"
+    *ngFor="let controller of controllers"
+    [routerLink]="['/', controller.toLowerCase()]"
+    routerLinkActive="active"
+  >
+    {{ controller }}
+  </a>
+</nav>

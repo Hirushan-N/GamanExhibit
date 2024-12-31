@@ -1,0 +1,187 @@
+<div class="container mt-4">
+    <!-- Tab Navigation -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#getAll">Get All Schedules</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#getById">Get Schedule by ID</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#create">Create Schedule</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#update">Update Schedule</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#delete">Delete Schedule</a>
+      </li>
+    </ul>
+  
+    <!-- Tab Content -->
+    <div class="tab-content mt-3">
+      <!-- Tab 1: Get All Schedules -->
+      <div id="getAll" class="tab-pane fade show active">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <button class="btn btn-primary me-2" (click)="onGetAllSchedules()">Fetch All Schedules</button>
+            <button class="btn btn-secondary" (click)="onReset('getAll')">Reset</button>
+          </div>
+        </div>
+        <app-http-display [requestObject]="getAllRequest" [responseObject]="getAllResponse"></app-http-display>
+      </div>
+  
+      <!-- Tab 2: Get Schedule by ID -->
+      <div id="getById" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onGetScheduleById()" class="border p-3 rounded shadow-sm">
+              <div class="mb-3">
+                <label for="getById" class="form-label">Schedule ID</label>
+                <input
+                  type="text"
+                  id="getById"
+                  class="form-control"
+                  [(ngModel)]="getByIdData"
+                  name="id"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Fetch</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('getById')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="getByIdRequest" [responseObject]="getByIdResponse"></app-http-display>
+      </div>
+  
+      <!-- Tab 3: Create Schedule -->
+      <div id="create" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onCreateSchedule()" class="border p-3 rounded shadow-sm">
+              <div class="mb-3">
+                <label for="createScheduleName" class="form-label">Schedule Name</label>
+                <input
+                  type="text"
+                  id="createScheduleName"
+                  class="form-control"
+                  [(ngModel)]="createData.scheduleName"
+                  name="scheduleName"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="createRouteId" class="form-label">Route ID</label>
+                <input
+                  type="text"
+                  id="createRouteId"
+                  class="form-control"
+                  [(ngModel)]="createData.routeId"
+                  name="routeId"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="createStatus" class="form-label">Status</label>
+                <select
+                  id="createStatus"
+                  class="form-select"
+                  [(ngModel)]="createData.status"
+                  name="status"
+                  required
+                >
+                  <option value="ACTIVE">Active</option>
+                  <option value="INACTIVE">Inactive</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Create</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('create')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="createRequest" [responseObject]="createResponse"></app-http-display>
+      </div>
+  
+      <!-- Tab 4: Update Schedule -->
+      <div id="update" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onUpdateSchedule()" class="border p-3 rounded shadow-sm">
+              <div class="mb-3">
+                <label for="updateId" class="form-label">Schedule ID</label>
+                <input
+                  type="text"
+                  id="updateId"
+                  class="form-control"
+                  [(ngModel)]="updateData.id"
+                  name="id"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="updateScheduleName" class="form-label">Schedule Name</label>
+                <input
+                  type="text"
+                  id="updateScheduleName"
+                  class="form-control"
+                  [(ngModel)]="updateData.scheduleName"
+                  name="scheduleName"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="updateRouteId" class="form-label">Route ID</label>
+                <input
+                  type="text"
+                  id="updateRouteId"
+                  class="form-control"
+                  [(ngModel)]="updateData.routeId"
+                  name="routeId"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="updateStatus" class="form-label">Status</label>
+                <select
+                  id="updateStatus"
+                  class="form-select"
+                  [(ngModel)]="updateData.status"
+                  name="status"
+                >
+                  <option value="ACTIVE">Active</option>
+                  <option value="INACTIVE">Inactive</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Update</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('update')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="updateRequest" [responseObject]="updateResponse"></app-http-display>
+      </div>
+  
+      <!-- Tab 5: Delete Schedule -->
+      <div id="delete" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onDeleteSchedule()" class="border p-3 rounded shadow-sm">
+              <div class="mb-3">
+                <label for="deleteId" class="form-label">Schedule ID</label>
+                <input
+                  type="text"
+                  id="deleteId"
+                  class="form-control"
+                  [(ngModel)]="deleteData.id"
+                  name="id"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-danger me-2">Delete</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('delete')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="deleteRequest" [responseObject]="deleteResponse"></app-http-display>
+      </div>
+    </div>
+  </div>
+  

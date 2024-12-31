@@ -1,0 +1,41 @@
+<div class="container">
+  <button class="btn btn-primary" (click)="openModal()">Manage Authentication</button>
+
+  <!-- Bootstrap Modal -->
+  <div
+    class="modal fade"
+    tabindex="-1"
+    [class.show]="showModal"
+    [style.display]="showModal ? 'block' : 'none'"
+    role="dialog"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Manage JWT Token</h5>
+          <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="jwtTokenInput" class="form-label">JWT Token</label>
+              <input
+                type="text"
+                id="jwtTokenInput"
+                class="form-control"
+                [(ngModel)]="jwtToken"
+                name="jwtToken"
+                #jwtTokenInput
+                (keydown)="handleEnterPress($event)"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" (click)="clearToken()">Clear Token</button>
+          <button class="btn btn-primary" (click)="saveToken()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
