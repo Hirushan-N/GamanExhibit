@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    apiBaseUrl: 'http://localhost:3000/api',
-  };
+    apiBaseUrl: 'https://gamanapi-a3658577c337.herokuapp.com/api' 
+};
   
