@@ -1,0 +1,131 @@
+<div class="container mt-4">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#search">Search Routes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#create">Create Route</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#update">Update Route</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#delete">Delete Route</a>
+      </li>
+    </ul>
+  
+    <div class="tab-content mt-3">
+      <div id="search" class="tab-pane fade show active">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onSearchRoutes()" class="border p-3 rounded shadow-sm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Route Number</label>
+                    <input type="text" class="form-control" [(ngModel)]="searchData.routeNumber" name="routeNumber" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Start Location</label>
+                    <input type="text" class="form-control" [(ngModel)]="searchData.startLocation" name="startLocation" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">End Location</label>
+                    <input type="text" class="form-control" [(ngModel)]="searchData.endLocation" name="endLocation" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Stop Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="searchData.stops" name="stops" />
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Search</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('search')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="searchRequest" [responseObject]="searchResponse"></app-http-display>
+      </div>
+  
+      <div id="create" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onCreateRoute()" class="border p-3 rounded shadow-sm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Route Number</label>
+                    <input type="text" class="form-control" [(ngModel)]="createData.routeNumber" name="routeNumber" required />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Start Location</label>
+                    <input type="text" class="form-control" [(ngModel)]="createData.startLocation" name="startLocation" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">End Location</label>
+                    <input type="text" class="form-control" [(ngModel)]="createData.endLocation" name="endLocation" required />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Stops (Comma Separated)</label>
+                    <input type="text" class="form-control" [(ngModel)]="createData.stops" name="stops" />
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Create</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('create')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="createRequest" [responseObject]="createResponse"></app-http-display>
+      </div>
+  
+      <div id="update" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onUpdateRoute()" class="border p-3 rounded shadow-sm">
+              <div class="mb-3">
+                <label class="form-label">Route ID</label>
+                <input type="text" class="form-control" [(ngModel)]="updateData.id" name="id" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Route Number</label>
+                <input type="text" class="form-control" [(ngModel)]="updateData.routeNumber" name="routeNumber" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Start Location</label>
+                <input type="text" class="form-control" [(ngModel)]="updateData.startLocation" name="startLocation" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">End Location</label>
+                <input type="text" class="form-control" [(ngModel)]="updateData.endLocation" name="endLocation" />
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Update</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('update')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="updateRequest" [responseObject]="updateResponse"></app-http-display>
+      </div>
+  
+      <div id="delete" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onDeleteRoute()" class="border p-3 rounded shadow-sm">
+              <div class="mb-3">
+                <label class="form-label">Route ID</label>
+                <input type="text" class="form-control" [(ngModel)]="deleteData.id" name="id" required />
+              </div>
+              <button type="submit" class="btn btn-danger me-2">Delete</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('delete')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display [requestObject]="deleteRequest" [responseObject]="deleteResponse"></app-http-display>
+      </div>
+    </div>
+  </div>
+  

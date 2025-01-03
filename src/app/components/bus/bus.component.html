@@ -1,0 +1,233 @@
+<div class="container mt-4">
+    <!-- Tab Navigation -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#search">Search Buses</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#create">Create Bus</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#update">Update Bus</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#delete">Delete Bus</a>
+      </li>
+    </ul>
+  
+    <!-- Tab Content -->
+    <div class="tab-content mt-3">
+      <!-- Tab 1: Search Buses -->
+      <div id="search" class="tab-pane fade show active">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onSearchBuses()" #searchForm="ngForm" class="border p-3 rounded shadow-sm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="searchBusNumber" class="form-label">Bus Number</label>
+                    <input
+                      type="text"
+                      id="searchBusNumber"
+                      class="form-control"
+                      [(ngModel)]="searchData.busNumber"
+                      name="busNumber"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="searchCapacity" class="form-label">Capacity</label>
+                    <input
+                      type="number"
+                      id="searchCapacity"
+                      class="form-control"
+                      [(ngModel)]="searchData.capacity"
+                      name="capacity"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="searchOwnershipType" class="form-label">Ownership Type</label>
+                    <select
+                      id="searchOwnershipType"
+                      class="form-select"
+                      [(ngModel)]="searchData.ownershipType"
+                      name="ownershipType"
+                    >
+                      <option value="">Any</option>
+                      <option value="SLTB">SLTB</option>
+                      <option value="PRIVATE">PRIVATE</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="searchStatus" class="form-label">Status</label>
+                    <select
+                      id="searchStatus"
+                      class="form-select"
+                      [(ngModel)]="searchData.status"
+                      name="status"
+                    >
+                      <option value="">Any</option>
+                      <option value="ACTIVE">Active</option>
+                      <option value="MAINTENANCE">Maintenance</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Search</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('search')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display
+          [requestObject]="searchRequest"
+          [responseObject]="searchResponse"
+        ></app-http-display>
+      </div>
+  
+      <!-- Tab 2: Create Bus -->
+      <div id="create" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onCreateBus()" #createForm="ngForm" class="border p-3 rounded shadow-sm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="createBusNumber" class="form-label">Bus Number</label>
+                    <input
+                      type="text"
+                      id="createBusNumber"
+                      class="form-control"
+                      [(ngModel)]="createData.busNumber"
+                      name="busNumber"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="createCapacity" class="form-label">Capacity</label>
+                    <input
+                      type="number"
+                      id="createCapacity"
+                      class="form-control"
+                      [(ngModel)]="createData.capacity"
+                      name="capacity"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="createOperatorId" class="form-label">Operator ID</label>
+                    <input
+                      type="text"
+                      id="createOperatorId"
+                      class="form-control"
+                      [(ngModel)]="createData.operatorId"
+                      name="operatorId"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="createOwnershipType" class="form-label">Ownership Type</label>
+                    <select
+                      id="createOwnershipType"
+                      class="form-select"
+                      [(ngModel)]="createData.ownershipType"
+                      name="ownershipType"
+                      required
+                    >
+                      <option value="SLTB">SLTB</option>
+                      <option value="PRIVATE">PRIVATE</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Create</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('create')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display
+          [requestObject]="createRequest"
+          [responseObject]="createResponse"
+        ></app-http-display>
+      </div>
+  
+      <!-- Tab 3: Update Bus -->
+      <div id="update" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onUpdateBus()" #updateForm="ngForm" class="border p-3 rounded shadow-sm">
+              <div class="mb-3">
+                <label for="updateId" class="form-label">Bus ID</label>
+                <input
+                  type="text"
+                  id="updateId"
+                  class="form-control"
+                  [(ngModel)]="updateData.id"
+                  name="id"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="updateBusNumber" class="form-label">Bus Number</label>
+                <input
+                  type="text"
+                  id="updateBusNumber"
+                  class="form-control"
+                  [(ngModel)]="updateData.busNumber"
+                  name="busNumber"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="updateOwnershipType" class="form-label">Ownership Type</label>
+                <select
+                  id="updateOwnershipType"
+                  class="form-select"
+                  [(ngModel)]="updateData.ownershipType"
+                  name="ownershipType"
+                >
+                  <option value="SLTB">SLTB</option>
+                  <option value="PRIVATE">PRIVATE</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Update</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('update')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display
+          [requestObject]="updateRequest"
+          [responseObject]="updateResponse"
+        ></app-http-display>
+      </div>
+  
+      <!-- Tab 4: Delete Bus -->
+      <div id="delete" class="tab-pane fade">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <form (ngSubmit)="onDeleteBus()" #deleteForm="ngForm" class="border p-3 rounded shadow-sm">
+              <div class="mb-3">
+                <label for="deleteId" class="form-label">Bus ID</label>
+                <input
+                  type="text"
+                  id="deleteId"
+                  class="form-control"
+                  [(ngModel)]="deleteData.id"
+                  name="id"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-danger me-2">Delete</button>
+              <button type="button" class="btn btn-secondary" (click)="onReset('delete')">Reset</button>
+            </form>
+          </div>
+        </div>
+        <app-http-display
+          [requestObject]="deleteRequest"
+          [responseObject]="deleteResponse"
+        ></app-http-display>
+      </div>
+    </div>
+  </div>
+  
