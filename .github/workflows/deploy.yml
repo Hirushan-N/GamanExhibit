@@ -1,0 +1,38 @@
+name: Deploy Angular App to Heroku
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular App
+        run: npm run build
+
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          echo -e "machine api.heroku.com\n  login api\n  password $HEROKU_API_KEY\nmachine git.heroku.com\n  login api\n  password $HEROKU_API_KEY" > ~/.netrc
+          chmod 600 ~/.netrc
+          git remote add heroku https://git.heroku.com/<your-app-name>.git || git remote set-url heroku https://git.heroku.com/<your-app-name>.git
+          git push heroku main
